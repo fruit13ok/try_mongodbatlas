@@ -3,7 +3,7 @@
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Scrape all links</title>
+    <title>Try MongoDB Atlas CRUD</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="./app.js" defer></script>
@@ -12,12 +12,15 @@
 <div class="container pt-5">
 <div class="shadow jumbotron rounded">
 
-    <h5>Get all links and their status from given page</h5>
+    <h5>MongoDB atlas CRUD sample</h5>
     <form id='form1' action="/">
-        Target page: 
-        <input type="text" name="targetPage" value="google.com" style="width:20%;">
+        Sample search key: 
+        <input type="text" name="targetPage" value="sample search key" style="width:20%;">
     </form>
-    <button id='button1' class="btn btn-primary mt-3 mb-3">Submit</button>
+    <button id='button1' class="btn btn-primary mt-3 mb-3">Save sample to DB</button>
+    <button id='button2' class="btn btn-primary mt-3 mb-3">Show all from DB</button>
+    <button id='button3' class="btn btn-primary mt-3 mb-3">Find matched from DB</button>
+    <button id='button4' class="btn btn-primary mt-3 mb-3">Delete selected from DB</button>
 	<hr>
     <div id='result-list'></div>
 </div>

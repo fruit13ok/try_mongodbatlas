@@ -7,6 +7,7 @@ code .
 npm init -y
 npm install express puppeteer body-parser node-fetch cors --save
 npm install nodemon --save-dev
+    // will be install mongoose later
 
 // in package.json
     "start-dev": "nodemon server"
@@ -47,6 +48,83 @@ touch .gitignore
     node_modules/
 git init
 git add .
-git commit -m "first commit, basic server with form POST"
+git commit -m "first commit with all_links"
+git branch -M main
 git remote add origin https://github.com/fruit13ok/try_mongodbatlas.git
-git push -u origin master
+git push -u origin main
+
+
+///////////////////////////////// mongodb atlas /////////////////////////////////
+
+1) go to
+https://www.mongodb.com/cloud/atlas
+sign up or sign in
+username: fruit13ok@gmail.com
+password: yliu192@@
+
+2) create a cluster, database, collection, 
+on top menu, in atlas tab
+on side menu, data storage, clusters
+    -create a new cluster, choose the free one (it takes a minute)
+        -default name cluster0
+    -click collections
+        -click add my own data
+            -database name database0
+            -collection name collection0
+the collection is empty no document yet
+
+3) add user who allow to access that database
+on side menu, security, database access
+    -create new database user
+        -I authenticate with username / password
+            -user0 / user0
+
+4) setup ip access list
+on side menu, security, network access
+    I want public access
+    -click allow access from anywhere, comfirm, it will fill the access list entry with 0.0.0.0/0 (it takes a minute)
+
+5) setup connection to database
+on side menu, data storage, clusters
+    -click connect, connect your application
+    -copy the connection uri
+        mongodb+srv://user0:<password>@cluster0.j2v4j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
+5.1) in our code install mongoose
+npm i mongoose --save
+
+5.2) store connection uri in our code
+in index.js, declare variable dbURI, I have user name as user0 and password as user0,
+replace <password> with user0
+replace <dbname> or myFirstDatabase with database0
+    after the database name is options, 
+    see http://mongodb.github.io/mongo-java-driver/3.9/javadoc/com/mongodb/MongoClientURI.html
+if it has <user> than replace <user> with user0
+// connect to mongodb
+const dbURI = "mongodb+srv://user0:user0@cluster0.j2v4j.mongodb.net/database0?retryWrites=true&w=majority";
+// later need to put username and password in envirment variable
+
+5.3) use mongoose to test connect ro database
+in index.js, require mongoose, connect to database
+const mongoose = require('mongoose');
+mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
+.then((result) => console.log('connected to db'))
+.catch((err) => console.log(err));
+// may be I should init server after I connected to database.
+
+6) create result Schema and Model 
+see result.js
+be careful with the model nameing, it hsould be differ from all 3 places:
+result.js
+index.js
+cloud.mongodb.com
+
+
+7) the mongoose way to query
+see index.js to interact with db
+new Result({})
+    save()
+find()
+find({})
+deleteMany({})
+
